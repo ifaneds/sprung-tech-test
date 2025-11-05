@@ -1,0 +1,390 @@
+@font-face {
+  font-family: 'Quattrocento';
+  src: url('/SprungStudios_TechTest/Fonts/Quattrocento-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HBR55';
+  src: url('/SprungStudios_TechTest/Fonts/HBR55.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HBR56';
+  src: url('/SprungStudios_TechTest/Fonts/HBR56.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Keyframe Animations */
+@keyframes glowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 16px rgba(255, 0, 0, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.8));
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.99);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1.05) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05) translateY(-5px);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+
+  overflow: hidden;
+}
+
+.character-card {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+.character-card:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+}
+
+.character-card.locked {
+  opacity: .75;
+}
+
+.character-card.active {
+  filter: drop-shadow(0 0 16px rgba(255, 0, 0, 0.5));
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.character-card .background-image-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+}
+
+.character-card .background-image-container .background-image:first-child {
+  position: relative;
+  display: block;
+}
+
+.character-card .background-image-container .background-image:last-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.character-card.active .background-image-container .background-image:last-child {
+  opacity: 1;
+}
+
+.character-card .foreground-image-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.character-card .foreground-image-container .foreground-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.character-card .foreground-image-container .foreground-image:last-child {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.character-card.active .foreground-image-container .foreground-image:last-child {
+  opacity: 1;
+}
+
+.character-card .portrait-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  clip-path: inset(7px);
+}
+
+.character-card .portrait-image {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.05);
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.character-card.active .portrait-image {
+  transform: translate(-50%, -50%) scale(1.1);
+  animation: float 3s ease-in-out infinite;
+}
+
+.character-card .category-image {
+  position: absolute;
+  top: 72%;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: top center;
+  object-fit: contain;
+  object-position: center;
+}
+
+.character-card .character-name {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Quattrocento';
+  font-size: 22px;
+  color: white;
+}
+
+.character-selection-screen {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.character-selection-screen .background-image {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.character-selection-screen .screen-divider {
+  position: absolute;
+  top: 160px;
+  left: 0;
+}
+
+.character-selection-screen .bottom-bar {
+  position: relative;
+  bottom: 108px;
+  left: 0;
+  height: auto;
+}
+
+.character-selection-screen .character-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px 20px;
+  padding-top: 30px;
+  padding-bottom: 60px;
+  padding-left: 30px;
+  position: absolute;
+  top: 180px;
+  left: 450px;
+  max-height: calc(1080px - 270px);
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 10;
+  mask-image: linear-gradient(to bottom, transparent 0%,black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%,black 5%, black 95%, transparent 100%);
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.character-selection-screen .character-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.character-card-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.character-selection-screen .character-grid > div {
+  width: 100%;
+}
+
+.character-grid:not(.character-grid-filtering) > div {
+  animation: scaleUp 0.5s ease forwards;
+}
+
+.category-filter-bar {
+  position: absolute;
+  padding-top: 30px;
+  left: 60px;
+  top: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 20;
+  animation: slideInFromLeft 0.8s ease 0.2s forwards;
+  opacity: 0;
+}
+
+.category-filter-bar > * {
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+.category-filter-bar > *:nth-child(1) { animation-delay: 0.4s; }
+.category-filter-bar > *:nth-child(2) { animation-delay: 0.5s; }
+.category-filter-bar > *:nth-child(3) { animation-delay: 0.6s; }
+.category-filter-bar > *:nth-child(4) { animation-delay: 0.7s; }
+.category-filter-bar > *:nth-child(5) { animation-delay: 0.8s; }
+
+.category-filter-button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.category-filter-button:hover {
+  transform: translateX(5px) scale(1.05);
+}
+
+.category-filter-button.active {
+  filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.5));
+}
+
+
+.filter-button-icon {
+  position: absolute;
+  top: 11px;
+  left: 27px;
+  transform: translateX(-50%);
+  transform-origin: top center;
+}
+
+.filter-button-text {
+  position: absolute;
+  top: 20px;
+  left: 70px;
+  font-family: 'Quattrocento';
+  font-weight: semibold;
+  font-size: 18px;
+  color: white;
+  transform: translateX(0) scale(1);
+  transition: transform 0.3s ease;
+}
+
+.category-filter-button:hover .filter-button-text {
+  transform: translateX(10px) scale(1.05);
+}
+
+
+.title {
+  position: absolute;
+  top: 100px;
+  left: 60px;
+  animation: slideInFromLeft 0.8s ease forwards;
+  opacity: 0;
+}
+
+.title-text {
+  font-family: 'Quattrocento';
+  font-size: 52px;
+  color: white;
+  letter-spacing: 4px;
+  -webkit-box-reflect: below -28px linear-gradient(to bottom, transparent 30%, black 250%);
+}
+
+.show-locked-toggle {
+  position: absolute;
+  top: 920px;
+  left: 60px;
+  animation: slideInFromRight 0.8s ease forwards;
+  opacity: 0;
+}
+
+.checkbox-toggle {
+  cursor: pointer;
+}
+
+.show-locked-toggle-text {
+  position: absolute;
+  top: 0px;
+  left: 48px;
+  font-family: 'Quattrocento';
+  font-size: 16px;
+  color: white;
+  transform: translateX(0) scale(1);
+  transition: transform 0.3s ease;
+}
