@@ -1,47 +1,47 @@
 {
   "Buttons": {
-    "Checkbox_Empty": "/SprungStudios_TechTest/Buttons/Checkbox_Empty.png",
-    "Checkbox_Fill": "/SprungStudios_TechTest/Buttons/Checkbox_Fill.png",
-    "Checkbox_Underline": "/SprungStudios_TechTest/Buttons/Checkbox_Underline.png",
-    "FilterButton_Active": "/SprungStudios_TechTest/Buttons/FilterButton_Active.png",
-    "FilterButton_Hovered": "/SprungStudios_TechTest/Buttons/FilterButton_Hovered.png",
-    "FilterButton_Normal": "/SprungStudios_TechTest/Buttons/FilterButton_Normal.png"
+    "Checkbox_Empty": "SprungStudios_TechTest/Buttons/Checkbox_Empty.png",
+    "Checkbox_Fill": "SprungStudios_TechTest/Buttons/Checkbox_Fill.png",
+    "Checkbox_Underline": "SprungStudios_TechTest/Buttons/Checkbox_Underline.png",
+    "FilterButton_Active": "SprungStudios_TechTest/Buttons/FilterButton_Active.png",
+    "FilterButton_Hovered": "SprungStudios_TechTest/Buttons/FilterButton_Hovered.png",
+    "FilterButton_Normal": "SprungStudios_TechTest/Buttons/FilterButton_Normal.png"
   },
   "CharacterCards": {
     "CardStates": {
-      "CharacterCard_Active": "/SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Active.png",
-      "CharacterCard_Background_Active": "/SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Background_Active.png",
-      "CharacterCard_Background_Normal": "/SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Background_Normal.png",
-      "CharacterCard_Foreground_Locked": "/SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Foreground_Locked.png",
-      "CharacterCard_Foreground_Normal": "/SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Foreground_Normal.png",
-      "CharacterCard_Locked_Active": "/SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Locked_Active.png"
+      "CharacterCard_Active": "SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Active.png",
+      "CharacterCard_Background_Active": "SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Background_Active.png",
+      "CharacterCard_Background_Normal": "SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Background_Normal.png",
+      "CharacterCard_Foreground_Locked": "SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Foreground_Locked.png",
+      "CharacterCard_Foreground_Normal": "SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Foreground_Normal.png",
+      "CharacterCard_Locked_Active": "SprungStudios_TechTest/CharacterCards/CardStates/CharacterCard_Locked_Active.png"
     },
     "CharacterPortraits": {
-      "Adrian": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Adrian.png",
-      "Alfred": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Alfred.png",
-      "Amelia": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Amelia.png",
-      "Annalise": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Annalise.png",
-      "Djura": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Djura.png",
-      "Edwin": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Edwin.png",
-      "Eileen": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Eileen.png",
-      "Hunter": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Hunter.png",
-      "Maria": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Maria.png",
-      "OldHunter": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/OldHunter.png",
-      "Pierce": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Pierce.png",
-      "Yahar": "/SprungStudios_TechTest/CharacterCards/CharacterPortraits/Yahar.png"
+      "Adrian": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Adrian.png",
+      "Alfred": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Alfred.png",
+      "Amelia": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Amelia.png",
+      "Annalise": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Annalise.png",
+      "Djura": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Djura.png",
+      "Edwin": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Edwin.png",
+      "Eileen": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Eileen.png",
+      "Hunter": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Hunter.png",
+      "Maria": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Maria.png",
+      "OldHunter": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/OldHunter.png",
+      "Pierce": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Pierce.png",
+      "Yahar": "SprungStudios_TechTest/CharacterCards/CharacterPortraits/Yahar.png"
     }
   },
   "Icons": {
-    "Icon_All": "/SprungStudios_TechTest/Icons/Icon_All.png",
-    "Icon_Assassin": "/SprungStudios_TechTest/Icons/Icon_Assassin.png",
-    "Icon_Brawler": "/SprungStudios_TechTest/Icons/Icon_Brawler.png",
-    "Icon_Support": "/SprungStudios_TechTest/Icons/Icon_Support.png",
-    "Icon_Tank": "/SprungStudios_TechTest/Icons/Icon_Tank.png"
+    "Icon_All": "SprungStudios_TechTest/Icons/Icon_All.png",
+    "Icon_Assassin": "SprungStudios_TechTest/Icons/Icon_Assassin.png",
+    "Icon_Brawler": "SprungStudios_TechTest/Icons/Icon_Brawler.png",
+    "Icon_Support": "SprungStudios_TechTest/Icons/Icon_Support.png",
+    "Icon_Tank": "SprungStudios_TechTest/Icons/Icon_Tank.png"
   },
   "Static": {
-    "Background": "/SprungStudios_TechTest/Static/Background.png",
-    "Bottom_Bar": "/SprungStudios_TechTest/Static/Bottom_Bar.png",
-    "ScreenDivider": "/SprungStudios_TechTest/Static/ScreenDivider.png"
+    "Background": "SprungStudios_TechTest/Static/Background.png",
+    "Bottom_Bar": "SprungStudios_TechTest/Static/Bottom_Bar.png",
+    "ScreenDivider": "SprungStudios_TechTest/Static/ScreenDivider.png"
   }
 }
 

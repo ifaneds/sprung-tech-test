@@ -1,3 +1,4 @@
+// All the character names - used to make sure we're using valid character names throughout the app
 export enum CharacterName {
     Adrian = 'Adrian',
     Alfred = 'Alfred',
@@ -13,6 +14,7 @@ export enum CharacterName {
     Yahar = 'Yahar'
 }
 
+// Category icons match the image file names in the Icons folder
 export enum CategoryIcon {
     Icon_All = 'Icon_All',
     Icon_Assassin = 'Icon_Assassin',
@@ -21,16 +23,21 @@ export enum CategoryIcon {
     Icon_Tank = 'Icon_Tank'
 }
 
+// Convert the icon enum (like "Icon_Assassin") to display text (like "Assassin")
+// Just removes the "Icon_" prefix
 export function getCategoryText(category: CategoryIcon): string {
     return category.replace('Icon_', '');
 }
 
+// Character data structure - simple strings for category names, not enum values
 export interface CharacterData {
     name: string;
     category: string;
     locked: boolean;
 }
 
+// Convert a simple category name (like "Assassin") to the matching CategoryIcon enum
+// This lets us use simple strings in the character data but still get type safety
 export function getCategoryIcon(category: string): CategoryIcon {
     const iconMap: Record<string, CategoryIcon> = {
         Assassin: CategoryIcon.Icon_Assassin,
@@ -39,9 +46,11 @@ export function getCategoryIcon(category: string): CategoryIcon {
         Tank: CategoryIcon.Icon_Tank,
         All: CategoryIcon.Icon_All,
     };
+    // Default to "All" if we get an unknown category (shouldn't happen, but safety first)
     return iconMap[category] ?? CategoryIcon.Icon_All;
 }
 
+// The actual character data - all the characters in the game with their properties
 export const characters: CharacterData[] = [
     { name: 'Adrian', category: 'Support', locked: false },
     { name: 'Alfred', category: 'Tank', locked: false },
