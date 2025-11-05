@@ -128,12 +128,12 @@ html, body {
   display: block;
 }
 
-.character-card .background-image-container .background-image:first-child {
+.character-card .background-image-container .background-image {
   position: relative;
   display: block;
 }
 
-.character-card .background-image-container .background-image:last-child {
+.character-card .background-image-container .active-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -141,7 +141,7 @@ html, body {
   transition: opacity 0.3s ease;
 }
 
-.character-card.active .background-image-container .background-image:last-child {
+.character-card.active .background-image-container .active-overlay {
   opacity: 1;
 }
 
@@ -160,12 +160,12 @@ html, body {
   transform: translate(-50%, -50%);
 }
 
-.character-card .foreground-image-container .foreground-image:last-child {
+.character-card .foreground-image-container .active-overlay {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-.character-card.active .foreground-image-container .foreground-image:last-child {
+.character-card.active .foreground-image-container .active-overlay {
   opacity: 1;
 }
 

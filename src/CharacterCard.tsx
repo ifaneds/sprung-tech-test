@@ -21,7 +21,7 @@ function CharacterCard({ name, locked, category, active }: CharacterCardProps) {
                     alt={name}
                 />
                 <img 
-                    className="background-image"
+                    className="background-image active-overlay"
                     src={cardStates['CharacterCard_Background_Active']}
                     alt={name}
                 />
@@ -40,7 +40,7 @@ function CharacterCard({ name, locked, category, active }: CharacterCardProps) {
                     alt={name}
                 />
                 <img 
-                    className="foreground-image"
+                    className="foreground-image active-overlay"
                     src={locked ? cardStates['CharacterCard_Locked_Active'] : cardStates['CharacterCard_Active']}
                     alt={name}
                 />
