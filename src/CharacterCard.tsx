@@ -1,23 +1,22 @@
 import imageMap from './image-map.json';
-import { CharacterName, CategoryIcon } from './types';
+import { CharacterName, getCategoryIconName } from './types';
 import { getImagePath } from './utils';
 
 interface CharacterCardProps {
     name: CharacterName;
     locked: boolean;
-    category: CategoryIcon;
+    category: string;
+    progress: number;
     active: boolean;
 }
 
-function CharacterCard({ name, locked, category, active }: CharacterCardProps) {
+function CharacterCard({ name, locked, progress, category, active }: CharacterCardProps) {
+    const iconKey = getCategoryIconName(category) as keyof typeof imageMap.Icons;
     const cardStates = imageMap.CharacterCards.CardStates;
-    
-    // Build up the CSS classes based on the card's state
     const cardClasses = `character-card${locked ? ' locked' : ''}${active ? ' active' : ''}`;
 
     return (
         <div className={cardClasses}>
-            {/* Background layer - shows normal or active state with a fade transition */}
             <div className="background-image-container">
                 <img 
                     className="background-image"
@@ -30,8 +29,6 @@ function CharacterCard({ name, locked, category, active }: CharacterCardProps) {
                     alt={name}
                 />
             </div>
-            
-            {/* Portrait image with a fade-to-transparent gradient at the bottom */}
             <div className="portrait-container">
                 <img 
                     className="portrait-image"
@@ -39,8 +36,6 @@ function CharacterCard({ name, locked, category, active }: CharacterCardProps) {
                     alt={name}
                 />
             </div>
-            
-            {/* Foreground layer - the card frame that shows locked/normal or active states */}
             <div className="foreground-image-container">
                 <img 
                     className="foreground-image"
@@ -53,16 +48,18 @@ function CharacterCard({ name, locked, category, active }: CharacterCardProps) {
                     alt={name}
                 />
             </div>
-            
-            {/* Category icon (Assassin, Brawler, etc.) displayed in a circle */}
-            <img 
+            <div 
                 className="category-image"
-                src={getImagePath(imageMap.Icons[category])}
-                alt={category}
+                style={{ 
+                    maskImage: `url(${getImagePath(imageMap.Icons[iconKey])})`,
+                    WebkitMaskImage: `url(${getImagePath(imageMap.Icons[iconKey])})`
+                }}
             />
-            
-            {/* Character name at the bottom of the card */}
             <div className="character-name">{name.toUpperCase()}</div>
+
+            <div className="progress-to-upgrade">
+                <div className="progress-number">{progress}/ 15</div>
+            </div>
         </div>
     );
 }

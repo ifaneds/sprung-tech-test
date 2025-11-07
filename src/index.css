@@ -19,6 +19,11 @@
   font-style: normal;
 }
 
+/* Define a colour gold for easy reuse */
+:root {
+  --gold: #fff0be;
+}
+
 /* Keyframe Animations */
 @keyframes glowPulse {
   0%, 100% {
@@ -66,6 +71,37 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 
@@ -177,7 +213,8 @@ html, body {
   height: 100%;
   overflow: hidden;
   pointer-events: none;
-  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 70%, transparent 78%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 78%);
   clip-path: inset(7px);
 }
 
@@ -201,8 +238,20 @@ html, body {
   left: 50%;
   transform: translateX(-50%);
   transform-origin: top center;
-  object-fit: contain;
-  object-position: center;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+  transition: background-color 0.3s ease;
+}
+
+.character-card.active .category-image {
+  background-color: var(--gold);
 }
 
 .character-card .character-name {
@@ -213,6 +262,26 @@ html, body {
   font-family: 'Quattrocento';
   font-size: 22px;
   color: white;
+}
+
+.character-card.active .character-name {
+  color: var(--gold);
+}
+
+.character-card .progress-to-upgrade {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.character-card .progress-number {
+  font-family: 'HBR56';
+  font-size: 16px;
+  color: white;
+}
+.character-card.active .progress-number {
+  color: var(--gold);
 }
 
 .character-selection-screen {
@@ -243,13 +312,11 @@ html, body {
 .character-selection-screen .character-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 20px 20px;
-  padding-top: 30px;
-  padding-bottom: 60px;
-  padding-left: 30px;
+  gap: 15px 15px;
+  padding: 30px 60px 60px 60px;
   position: absolute;
   top: 180px;
-  left: 450px;
+  left: 420px;
   max-height: calc(1080px - 270px);
   min-height: 0;
   overflow-y: auto;
@@ -294,13 +361,13 @@ html, body {
   flex-direction: column;
   gap: 15px;
   z-index: 20;
-  animation: slideInFromLeft 0.8s ease 0.2s forwards;
   opacity: 0;
+  animation: slideInFromLeft 0.8s ease 0.2s forwards;
 }
 
 .category-filter-bar > * {
-  animation: fadeIn 0.5s ease forwards;
   opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
 }
 
 .category-filter-bar > *:nth-child(1) { animation-delay: 0.4s; }
@@ -324,31 +391,48 @@ html, body {
   filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.5));
 }
 
-
-.filter-button-icon {
+.category-filter-button .filter-button-icon {
   position: absolute;
-  top: 11px;
-  left: 27px;
-  transform: translateX(-50%);
+  top: 47%;
+  left: 8%;
+  transform: translate(-50%, -50%);
   transform-origin: top center;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+  transition: background-color 0.3s ease;
 }
 
-.filter-button-text {
+.category-filter-button.active .filter-button-icon {
+  background-color: var(--gold);
+}
+
+.category-filter-button .filter-button-text {
   position: absolute;
-  top: 20px;
+  top: 50%;
   left: 70px;
-  font-family: 'Quattrocento';
+  font-family: 'HBR55';
   font-weight: semibold;
-  font-size: 18px;
+  font-size: 20px;
   color: white;
-  transform: translateX(0) scale(1);
-  transition: transform 0.3s ease;
+  transform: translateY(-50%) scale(1);
+  transform-origin: center;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.category-filter-button.active .filter-button-text {
+  color: var(--gold);
 }
 
 .category-filter-button:hover .filter-button-text {
-  transform: translateX(10px) scale(1.05);
+  transform: translateY(-50%) translateX(10px) scale(1.05);
 }
-
 
 .title {
   position: absolute;
@@ -370,8 +454,11 @@ html, body {
   position: absolute;
   top: 920px;
   left: 60px;
-  animation: slideInFromRight 0.8s ease forwards;
   opacity: 0;
+}
+
+.show-locked-toggle {
+  animation: slideInFromRight 0.8s ease forwards;
 }
 
 .checkbox-toggle {
@@ -387,4 +474,135 @@ html, body {
   color: white;
   transform: translateX(0) scale(1);
   transition: transform 0.3s ease;
+}
+
+.continue-button {
+  position: absolute;
+  bottom: 124px;
+  right: 100px;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+  animation: slideInFromRight 0.8s ease;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.continue-button.disabled {
+  cursor: not-allowed;
+}
+
+.continue-button:not(.disabled):hover {
+  transform: scale(1.05);
+}
+
+.continue-button-text {
+  font-family: 'HBR55';
+  font-size: 20px;
+  color: white;
+  position: absolute;
+  bottom: 14px;
+  left: 10px;
+  text-align: center;
+}
+
+.continue-button:not(.disabled):hover .continue-button-text {
+  color: var(--gold);
+}
+
+.continue-button.disabled .continue-button-text {
+  color: rgb(80, 85, 90);
+}
+
+.back-button {
+  position: absolute;
+  bottom: 124px;
+  left: 100px;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+  animation: slideInFromRight 0.8s ease;
+  transform: translateX(0);
+}
+
+.back-button.disabled {
+  cursor: not-allowed;
+}
+
+.back-button:hover {
+  transform: scale(1.05);
+}
+
+.back-button-text {
+  font-family: 'HBR55';
+  font-size: 20px;
+  color: white;
+  position: absolute;
+  bottom: 14px;
+  left: 10px;
+  text-align: center;
+}
+
+.back-button:hover .back-button-text {
+  color: var(--gold);
+}
+
+.back-button.disabled .back-button-text {
+  color: rgb(80, 85, 90);
+}
+
+
+.enlarged-character-card {
+  position: absolute;
+  top: 200px;
+  left: 40px;
+  padding: 60px;
+  transform: scale(1.3);
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.enlarged-character-card {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.character-details-container {
+  position: absolute;
+  top: 200px;
+  left: 500px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.character-details-container {
+  animation: slideInFromRight 0.8s ease forwards;
+}
+
+.character-details-name {
+  font-family: 'HBR55';
+  font-size: 60px;
+  color: var(--gold);
+}
+
+.character-details-category {
+  font-family: 'Quattrocento';
+  font-size: 20px;
+  color: white;
+  margin-top: 20px;
+}
+
+.character-details-progress {
+  font-family: 'HBR56';
+  font-size: 16px;
+  color: white;
+  margin-top: 10px;
+}
+
+.character-details-bio {
+  font-family: 'Quattrocento';
+  font-size: 16px;
+  color: white;
+  margin-top: 10px;
 }

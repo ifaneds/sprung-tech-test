@@ -1,60 +1,38 @@
 import { useState, useEffect, useMemo } from "react"
 import CharacterCard from "./CharacterCard"
 import imageMap from "./image-map.json"
-import { CharacterName, getCategoryIcon, characters, CategoryIcon } from "./types"
+import { CharacterName, CharacterData, characters, categories } from "./types"
 import CategoryBar from "./CategoryBar";
 import { getImagePath } from "./utils";
 
-// Sort characters alphabetically so they're always displayed in a consistent order
 const sortedCharacters = [...characters].sort((a, b) => a.name.localeCompare(b.name));
 
 function App() {
-  // The currently selected character card (the one that's highlighted)
-  const [activeCharacter, setActiveCharacter] = useState<string>(sortedCharacters[0].name);
-  
-  // Which category filter is currently active (All, Assassin, Brawler, etc.)
-  const [selectedCategory, setSelectedCategory] = useState<CategoryIcon>(CategoryIcon.Icon_All);
-  
-  // Track which filter button is being hovered for the hover effect
-  const [hoveredCategory, setHoveredCategory] = useState<CategoryIcon | null>(null);
-  
-  // Brief flag to trigger the filtering animation when switching categories
+  const [activeCharacter, setActiveCharacter] = useState<CharacterData | null>(sortedCharacters[0] || null);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [isFiltering, setIsFiltering] = useState(false);
-  
-  // Toggle to show/hide locked characters
   const [showLocked, setShowLocked] = useState(true);
+  const [isDetailView, setIsDetailView] = useState(false);
 
-  // Filter the character list based on the selected category and locked toggle
-  // Using useMemo so we only recalculate when the filters actually change
   const filteredCharacters = useMemo(() => {
     return sortedCharacters.filter(character => {
-      // If the toggle is off, hide all locked characters
       if (!showLocked && character.locked) {
         return false;
       }
-      
-      // If "All" is selected, show everyone (already filtered by locked status above)
-      if (selectedCategory === CategoryIcon.Icon_All) {
+      if (selectedCategory === 'All') {
         return true;
       }
-      
-      // Otherwise, only show characters that match the selected category
-      const characterCategoryIcon = getCategoryIcon(character.category);
-      return characterCategoryIcon === selectedCategory;
+      return character.category === selectedCategory;
     });
   }, [selectedCategory, showLocked]);
 
-  // When the filter changes, briefly show the filtering animation
-  // and automatically select the first character in the filtered list
   useEffect(() => {
     setIsFiltering(true);
     const timer = setTimeout(() => setIsFiltering(false), 12);
-
-    // Auto-select the first character so there's always something highlighted
     if (filteredCharacters.length > 0) {
-      setActiveCharacter(filteredCharacters[0].name);
+      setActiveCharacter(filteredCharacters[0]);
     }
-    
     return () => clearTimeout(timer);
   }, [filteredCharacters]);
 
@@ -73,49 +51,83 @@ function App() {
         <div className="title">
           <div className="title-text">CHARACTERS</div>
         </div>
-        {/* Filter buttons on the left side - one for each category */}
-        <div className="category-filter-bar">
-          {Object.values(CategoryIcon).map((category) => (
-            <CategoryBar
-              key={category}
-              category={category}
-              hovered={hoveredCategory === category}
-              active={selectedCategory === category}
-              onClick={() => setSelectedCategory(category)}
-              onMouseEnter={() => setHoveredCategory(category)}
-              onMouseLeave={() => setHoveredCategory(null)}
-            />
-          ))}
-        </div>
-        {/* Toggle to show/hide locked characters */}
-        <div className="show-locked-toggle">
-          <img
-            className="checkbox-toggle"
-            src={getImagePath(showLocked ? imageMap.Buttons.Checkbox_Fill : imageMap.Buttons.Checkbox_Empty)}
-            alt="Show Locked Toggle"
-            onClick={() => setShowLocked(!showLocked)}
-          />
-          <img src={getImagePath(imageMap.Buttons.Checkbox_Underline)} alt="Show Locked Toggle" />
-          <div className="show-locked-toggle-text">Show locked</div>
-        </div>
         
-        {/* Grid of character cards - 5 columns, scrollable */}
-        <div className={`character-grid ${isFiltering ? 'character-grid-filtering' : ''}`}>
-          {filteredCharacters.map((character) => (
-            <div
-              key={character.name}
-              className="character-card-wrapper"
-              onClick={() => setActiveCharacter(character.name)}
-            >
+        {!isDetailView ? (
+          <>
+            <div className="category-filter-bar">
+              {categories.map((category) => (
+                <CategoryBar
+                  key={category}
+                  category={category}
+                  hovered={hoveredCategory === category}
+                  active={selectedCategory === category}
+                  onClick={() => setSelectedCategory(category)}
+                  onMouseEnter={() => setHoveredCategory(category)}
+                  onMouseLeave={() => setHoveredCategory(null)}
+                />
+              ))}
+            </div>
+            <div className="show-locked-toggle">
+              <img
+                className="checkbox-toggle"
+                src={getImagePath(showLocked ? imageMap.Buttons.Checkbox_Fill : imageMap.Buttons.Checkbox_Empty)}
+                alt="Show Locked Toggle"
+                onClick={() => setShowLocked(!showLocked)}
+              />
+              <img src={getImagePath(imageMap.Buttons.Checkbox_Underline)} alt="Show Locked Toggle" />
+              <div className="show-locked-toggle-text">Show locked</div>
+            </div>
+            <div className={`character-grid ${isFiltering ? 'character-grid-filtering' : ''}`}>
+              {filteredCharacters.map((character) => (
+                <div
+                  key={character.name}
+                  className="character-card-wrapper"
+                  onClick={() => setActiveCharacter(character)}
+                >
+                  <CharacterCard
+                    name={character.name as CharacterName}
+                    locked={character.locked}
+                    category={character.category}
+                    progress={character.progress}
+                    active={activeCharacter?.name === character.name}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className={`continue-button${activeCharacter?.locked ? ' disabled' : ''}`}>
+              <div className="continue-button-text" onClick={() => {
+                if (!activeCharacter?.locked) {
+                  setIsDetailView(true);
+                }
+              }}>CONTINUE</div>
+              <img src={getImagePath(imageMap.Buttons.Checkbox_Underline)} alt="Continue Button" />
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="back-button">
+              <div className="back-button-text" onClick={() => {
+                setIsDetailView(false);
+              }}>BACK</div>
+              <img src={getImagePath(imageMap.Buttons.Checkbox_Underline)} alt="Back Button" />
+            </div>
+            <div className="enlarged-character-card">
               <CharacterCard
-                name={character.name as CharacterName}
-                locked={character.locked}
-                category={getCategoryIcon(character.category)}
-                active={activeCharacter === character.name}
+                name={activeCharacter?.name as CharacterName}
+                locked={activeCharacter?.locked || false}
+                category={activeCharacter?.category || ''}
+                progress={activeCharacter?.progress || 0}
+                active={true}
               />
             </div>
-          ))}
-        </div>
+            <div className="character-details-container">
+              <div className="character-details-name">{activeCharacter?.name.toUpperCase()}</div>
+              <div className="character-details-category">{activeCharacter?.category}</div>
+              <div className="character-details-progress">Progress to next level: {activeCharacter?.progress}/15</div>
+              <div className="character-details-bio">A brief bio of the character here</div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
